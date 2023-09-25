@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_developers_management" model="ir.actions.act_window">
+        <field name="name">Developers</field>
+        <field name="res_model">developers.management.developer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_group_type': 1}</field>
+        <field name="help" type="html">
+            <p>
+                No developers yet!
+            </p>
+        </field>
+    </record>
+
+    <record id="developer_form_view" model="ir.ui.view">
+        <field name="name">developer.form.view</field>
+        <field name="model">developers.management.developer</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="global_identification"/>
+                        <field name="dev_company_id"/>
+                        <field name="phone" attrs="{'invisible':[('type', '=', 'out-stuff')]}"/>
+                        <field name="email"/>
+                        <field name="address"/>
+                        <field name="birthdate"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="developer_tree_view" model="ir.ui.view">
+        <field name="name">developer.view.tree</field>
+        <field name="model">developers.management.developer</field>
+        <field name="arch" type="xml">
+            <tree string="Developers">
+                <field name="name"/>
+                <field name="type"/>
+                <field name="global_identification"/>
+                <field name="dev_company_id"/>
+                <field name="phone" attrs="{'invisible':[('type', '=', 'out-stuff')]}"/>
+                <field name="email"/>
+                <field name="address"/>
+                <field name="birthdate"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="developer_search_view" model="ir.ui.view">
+        <field name="name">Developer Search View</field>
+        <field name="model">developers.management.developer</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="phone" filter_domain="[('phone', 'ilike', self)]"/>
+                <field name="type" filter_domain="[('type', 'ilike', self)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Type" name="type" context="{'group_by': 'type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_add_developer_form" model="ir.actions.act_window">
+        <field name="name">Add Developer</field>
+        <field name="res_model">developers.management.developer</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="developer_form_view"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

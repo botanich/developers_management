@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="action_company_management" model="ir.actions.act_window">
+        <field name="name">Companies</field>
+        <field name="res_model">developers.management.company</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>
+                No companies yet!
+            </p>
+        </field>
+    </record>
+
+    <record id="company_form_view" model="ir.ui.view">
+        <field name="name">company.form.view</field>
+        <field name="model">developers.management.company</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="address"/>
+                        <field name="developer_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="company_tree_view" model="ir.ui.view">
+        <field name="name">company.view.tree</field>
+        <field name="model">developers.management.company</field>
+        <field name="arch" type="xml">
+            <tree string="Companies">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="developer_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="company_search_view" model="ir.ui.view">
+        <field name="name">Company Search View</field>
+        <field name="model">developers.management.company</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Company Name" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="address" string="Company Address" filter_domain="[('address', 'ilike', self)]"/>
+                <field name="developer_ids" string="Company Developers" filter_domain="[('developer_ids', 'ilike', self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_add_company_form" model="ir.actions.act_window">
+        <field name="name">Add Company</field>
+        <field name="res_model">developers.management.company</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="company_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
